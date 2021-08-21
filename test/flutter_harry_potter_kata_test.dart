@@ -12,6 +12,15 @@ void main() {
 }
 
 class Basket {
-  static void addBooks(List<int> books) {}
-  static getPrice() {}
+  static List<int> _books = [];
+
+  static void addBooks(List<int> books) {
+    _books = books;
+  }
+
+  static getPrice() {
+    if (_books.where((element) => element == 1).length == 1) {
+      return 8;
+    }
+  }
 }
