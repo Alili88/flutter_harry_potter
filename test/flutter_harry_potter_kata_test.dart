@@ -1,12 +1,17 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_harry_potter_kata/flutter_harry_potter_kata.dart';
-
 void main() {
-  test('adds one to input values', () {
-    final calculator = Calculator();
-    expect(calculator.addOne(2), 3);
-    expect(calculator.addOne(-7), -6);
-    expect(calculator.addOne(0), 1);
+  test('1 copy of the first book cost 8 EUR', () {
+    // arrange
+    Basket.addBooks([1, 0, 0, 0, 0]);
+    // act
+    var price = Basket.getPrice();
+    // assert
+    expect(price, 8);
   });
+}
+
+class Basket {
+  static void addBooks(List<int> books) {}
+  static getPrice() {}
 }
