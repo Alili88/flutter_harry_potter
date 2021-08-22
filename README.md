@@ -1,6 +1,8 @@
 # flutter_harry_potter_kata
 
 This is a Kata using TDD to implement.
+Coding Language: Dart
+Framework: Flutter
 
 ## Getting Started
 
