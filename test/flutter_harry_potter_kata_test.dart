@@ -11,4 +11,14 @@ void main() {
     // assert
     expect(price, 8);
   });
+
+  test('2 different books with 5% discount', () {
+    // arrange
+    var basket = Basket();
+    basket.addBooks([1, 1, 0, 0, 0]);
+    // act
+    var price = basket.getPrice();
+    // assert
+    expect(price, 15.2);
+  });
 }
