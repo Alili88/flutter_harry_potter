@@ -1,5 +1,7 @@
 class Basket {
   List<int> _books = [];
+  List<double> _totalPrice = [];
+  int _currentCount = 0;
   Map<int, double> discountMapping = {
     1: 1.0,
     2: 0.95,
@@ -10,24 +12,40 @@ class Basket {
 
   void addBooks(List<int> books) {
     _books = books;
+    _currentCount = _books.length;
   }
 
   double getPrice() {
+    var firstCount = _currentCount;
     double totalPrice = 0;
-    while (getTypes() > 0) {
-      var discount = discountMapping[getTypes()]!;
-      totalPrice += 8 * getTypes() * discount;
-      _books = _books.map((book) {
-        if (book > 0) {
-          book--;
-        }
-        return book;
-      }).toList();
+    var books = _books;
+    while (getTypes(books) > 0) {
+      var combination = firstCount == 0 ? getTypes(books) : firstCount;
+      var discount = discountMapping[combination]!;
+      totalPrice += 8 * (combination) * discount;
+      firstCount = 0;
+      books.sort((a, b) => b - a);
+      books = books
+          .asMap()
+          .map((key, value) {
+            if (key < combination && value > 0) {
+              value--;
+            }
+            return MapEntry(key, value);
+          })
+          .values
+          .toList();
     }
-    return totalPrice;
+    _totalPrice.add(totalPrice);
+    if (_currentCount > 0) {
+      _currentCount--;
+      getPrice();
+    }
+    _totalPrice.sort((a, b) => a.compareTo(b));
+    return _totalPrice.first;
   }
 
-  int getTypes() {
-    return _books.where((element) => element > 0).length;
+  int getTypes(List<int> books) {
+    return books.where((element) => element > 0).length;
   }
 }
